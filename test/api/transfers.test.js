@@ -5,12 +5,14 @@ const { obterToken } = require('../helpers/autenticacao.js')
 const postTransfers = require('../fixtures/postTransfers.json')
 
 describe('Transfers', () => {
-    describe('POST /transfers', () => {
-        let token
 
-        beforeEach(async () => {
-            token = await obterToken("vitor", "123456");
-        })
+    let token
+
+    beforeEach(async () => {
+        token = await obterToken("vitor", "123456");
+    })
+
+    describe('POST /transfers', () => {
 
         it('Deve retornar 201 quando o valor da transferencia for válido', async () => {
             const bodyTransfers = { ...postTransfers };
@@ -91,18 +93,11 @@ describe('Transfers', () => {
         })
     })
 
-
     describe('GET /transfers', () => {
-        let token
-
-        beforeEach(async () => {
-            token = await obterToken("vitor", "123456");
-        })
 
         it('Deve retornar 200 quando a requisição for válida', async () => {
             const response = await request(process.env.BASE_URL)
                 .get('/transfers')
-                .set('Content-type', 'Application/json')
                 .set('Authorization', `Bearer ${token}`)
             expect(response.status).to.equal(200);
         });
@@ -110,8 +105,6 @@ describe('Transfers', () => {
         it('Deve retornar 401 quando o token for inválido ou não for informado', async () => {
             const response = await request(process.env.BASE_URL)
                 .get('/transfers')
-                .set('Content-type', 'Application/json')
-            //.set('Authorization', `Bearer ${token}`)
             expect(response.status).to.equal(401);
             expect(response.body.message).to.equal("Token não fornecido.");
             console.log(response.body);
