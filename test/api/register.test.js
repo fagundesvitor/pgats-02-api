@@ -1,27 +1,27 @@
 const request = require('supertest');
-const { expect } = require('chai');
+require('dotenv').config();
 
 describe('POST /users/register', () => {
     it('Deve retornar 201 quando usuário for criado com sucesso', async () => {
-        const response = await request('http://localhost:3000')
+        const response = await request(process.env.BASE_URL)
             .post('/users/register')
             .set('Content-Type', 'application/json')
             .send({
-                "username": "vitor5",
+                "username": "edson",
                 "password": "123456",
-                "favorecidos": ["vitor"]
+                "favorecidos": ["paulo"]
             });
 
         expect(response.status).to.equal(201);
         expect(response.body).to.deep.equal({
-            "username": "vitor5",
-            "favorecidos": ["vitor"],
+            "username": "edson",
+            "favorecidos": ["paulo"],
             "saldo": 10000
         });
     });
 
     it('Deve retornar 400 quando usuário já existir', async () => {
-        const response = await request('http://localhost:3000')
+        const response = await request(process.env.BASE_URL)
             .post('/users/register')
             .set('Content-Type', 'application/json')
             .send({
