@@ -1,5 +1,22 @@
 {
-  "from": "vitor",
-  "to": "vitor1",
-  "value": 10.00
+  "sucesso": {
+    "from": "vitor",
+    "to": "vitor1",
+    "value": 10.00
+  },
+  "destinatario-inexistente": {
+    "from": "julio",
+    "to": "raiam",
+    "value": 10.00
+  },
+   "remetente-inexistente": {
+    "from": "raiam",
+    "to": "vitor",
+    "value": 10.00
+  },
+   "saldo-inexistente": {
+    "from": "vitor",
+    "to": "vitor1",
+    "value": 5000000.00
+  }
 }

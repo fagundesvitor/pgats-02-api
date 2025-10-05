@@ -11,7 +11,6 @@ describe('POST /users/register', () => {
             .post('/users/register')
             .set('Content-Type', 'application/json')
             .send(bodyRegister);
-
         expect(response.status).to.equal(201);
         expect(response.body).to.deep.equal({
             "username": randomUsername,
@@ -32,6 +31,7 @@ describe('POST /users/register', () => {
                 ]
             });
         expect(response.status).to.equal(400);
-        expect(response.body.error).to.equal('Usuário já existe');
+        expect(response.body.error).to.equal("Usuário já existe");
+        console.log(response.body)
     });
 });
