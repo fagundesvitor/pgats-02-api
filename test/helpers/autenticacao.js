@@ -3,7 +3,7 @@ const postLogin = require('../fixtures/postLogin.json')
 require('dotenv').config();
 
 const obterToken = async (usuario, senha) => {
-    const bodyLogin = { ...postLogin }
+    const bodyLogin = { ...postLogin.sucesso }
     const response = await request(process.env.BASE_URL)
         .post('/users/login')
         .set('Content-type', 'Application/json')

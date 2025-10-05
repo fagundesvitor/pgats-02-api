@@ -22,6 +22,29 @@ describe('Transfers', () => {
             expect(response.status).to.equal(201);
         });
 
+        it('Deve retornar 400 quando a transerência for acima de 5000,00 para não favorecidos', async () => {
+            const bodyTransfers = { ...postTransfers };
+            const response = await request(process.env.BASE_URL)
+                .post('/transfers')
+                .set('Content-type', 'Application/json')
+                .set('Authorization', `Bearer ${token}`)
+                .send(bodyTransfers['acima-5000-nao-favorecido']);
+            expect(response.status).to.equal(400);
+            expect(response.body.error).to.equal("Transferência acima de R$ 5.000,00 só para favorecidos");
+            console.log(response.body);
+        });
+
+        it('Deve retornar 201 quando a transerência for acima de 5000,00 para favorecidos', async () => {
+            const bodyTransfers = { ...postTransfers };
+            const response = await request(process.env.BASE_URL)
+                .post('/transfers')
+                .set('Content-type', 'Application/json')
+                .set('Authorization', `Bearer ${token}`)
+                .send(bodyTransfers['acima-5000-favorecido']);
+            expect(response.status).to.equal(201);
+            console.log(response.body);
+        });
+
         it('Deve retornar 400 quando o destinatário for inexistente', async () => {
             const bodyTransfers = { ...postTransfers }
             const response = await request(process.env.BASE_URL)

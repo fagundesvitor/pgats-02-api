@@ -1,4 +1,12 @@
 {
+  "sucesso": {
   "username": "vitor",
   "password": "123456"
+  },
+  "sem-senha": {
+  "username": "vitor"
+  },
+  "sem-usuario": {
+  "password": "123456"
+  }
 }

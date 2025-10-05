@@ -8,8 +8,28 @@ describe('POST /users/login', () => {
         const response = await request(process.env.BASE_URL)
             .post('/users/login')
             .set('Content-Type', 'application/json')
-            .send(postLogin);
+            .send(postLogin.sucesso);
         expect(response.status).to.equal(200);
         expect(response.body.token).to.be.a('string');
+    });
+
+    it('Deve retornar 400 quando não informar a senha', async () => {
+        const response = await request(process.env.BASE_URL)
+            .post('/users/login')
+            .set('Content-Type', 'application/json')
+            .send(postLogin['sem-senha']);
+        expect(response.status).to.equal(400);
+        expect(response.body.error).to.equal("Usuário e senha obrigatórios");
+        console.log(response.body);
+    });
+
+    it('Deve retornar 400 quando não informar o usuário', async () => {
+        const response = await request(process.env.BASE_URL)
+            .post('/users/login')
+            .set('Content-Type', 'application/json')
+            .send(postLogin['sem-usuario']);
+        expect(response.status).to.equal(400);
+        expect(response.body.error).to.equal("Usuário e senha obrigatórios");
+        console.log(response.body);
     });
 });
