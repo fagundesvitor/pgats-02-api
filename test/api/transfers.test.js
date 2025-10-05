@@ -9,42 +9,89 @@ describe('Transfers', () => {
         let token
 
         beforeEach(async () => {
-            token = await obterToken(vitor, 123456);
+            token = await obterToken("vitor", "123456");
         })
 
-        it('Deve retornar sucesso com 201 quando o valor da transferencia for válido', async () => {
-            const bodyTransfers = { ...postTransfers }
+        it('Deve retornar 201 quando o valor da transferencia for válido', async () => {
+            const bodyTransfers = { ...postTransfers };
             const response = await request(process.env.BASE_URL)
-                .post('transfers')
-                .set('Content-type', 'Applicati{on/json')
+                .post('/transfers')
+                .set('Content-type', 'Application/json')
                 .set('Authorization', `Bearer ${token}`)
-                .send(bodyTransfers)
+                .send(bodyTransfers.sucesso);
             expect(response.status).to.equal(201);
-            console.log(response.body);
-        })
+        });
+
         it('Deve retornar 400 quando o destinatário for inexistente', async () => {
             const bodyTransfers = { ...postTransfers }
             const response = await request(process.env.BASE_URL)
-                .post('transfers')
-                .set('Content-type', 'Applicati{on/json')
+                .post('/transfers')
+                .set('Content-type', 'Application/json')
                 .set('Authorization', `Bearer ${token}`)
-                .send(bodyTransfers)
+                .send(bodyTransfers['destinatario-inexistente']);
             expect(response.status).to.equal(400);
-            console.log(response.body);
-        })
+            expect(response.body.error).to.equal("Usuário remetente ou destinatário não encontrado");
+        });
+
         it('Deve retornar 400 quando o remetente for inexistente', async () => {
             const bodyTransfers = { ...postTransfers }
             const response = await request(process.env.BASE_URL)
-                .post('transfers')
-                .set('Content-type', 'Applicati{on/json')
+                .post('/transfers')
+                .set('Content-type', 'Application/json')
                 .set('Authorization', `Bearer ${token}`)
-                .send(bodyTransfers)
+                .send(bodyTransfers['remetente-inexistente']);
             expect(response.status).to.equal(400);
+            expect(response.body.error).to.equal("Usuário remetente ou destinatário não encontrado");
+        });
+
+        it('Deve retornar 401 quando o token for inválido ou não for informado', async () => {
+            const bodyTransfers = { ...postTransfers }
+            const response = await request(process.env.BASE_URL)
+                .post('/transfers')
+                .set('Content-type', 'Application/json')
+                //.set('Authorization', `Bearer ${token}`)
+                .send(bodyTransfers.sucesso);
+            expect(response.status).to.equal(401);
+            expect(response.body.message).to.equal("Token não fornecido.");
             console.log(response.body);
         })
-
-
-
+        it('Deve retornar 400 quando não tem saldo suficiente', async () => {
+            const bodyTransfers = { ...postTransfers }
+            const response = await request(process.env.BASE_URL)
+                .post('/transfers')
+                .set('Content-type', 'Application/json')
+                .set('Authorization', `Bearer ${token}`)
+                .send(bodyTransfers['saldo-inexistente']);
+            expect(response.status).to.equal(400);
+            expect(response.body.error).to.equal("Saldo insuficiente");
+            console.log(response.body);
+        })
     })
 
+
+    describe('GET /transfers', () => {
+        let token
+
+        beforeEach(async () => {
+            token = await obterToken("vitor", "123456");
+        })
+
+        it('Deve retornar 200 quando a requisição for válida', async () => {
+            const response = await request(process.env.BASE_URL)
+                .get('/transfers')
+                .set('Content-type', 'Application/json')
+                .set('Authorization', `Bearer ${token}`)
+            expect(response.status).to.equal(200);
+        });
+
+        it('Deve retornar 401 quando o token for inválido ou não for informado', async () => {
+            const response = await request(process.env.BASE_URL)
+                .get('/transfers')
+                .set('Content-type', 'Application/json')
+            //.set('Authorization', `Bearer ${token}`)
+            expect(response.status).to.equal(401);
+            expect(response.body.message).to.equal("Token não fornecido.");
+            console.log(response.body);
+        });
+    })
 })
