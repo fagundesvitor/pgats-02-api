@@ -18,5 +18,15 @@
     "from": "vitor",
     "to": "vitor1",
     "value": 5000000.00
+  },
+   "acima-5000-nao-favorecido": {
+    "from": "julio",
+    "to": "vitor",
+    "value": 5001.00
+  },
+   "acima-5000-favorecido": {
+    "from": "julio",
+    "to": "priscila",
+    "value": 5001.00
   }
 }
