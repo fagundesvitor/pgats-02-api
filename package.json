@@ -1,40 +1,22 @@
 {
-<<<<<<< HEAD
-  "name": "projeto-desafio-3-novo",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fagundesvitor/pgats-02-api.git"
-=======
   "name": "pgats-02-api",
   "version": "1.0.0",
   "description": "Esta API permite o registro, login, consulta de usuários e transferências de valores entre usuários. O objetivo é servir de base para estudos de testes e automação de APIs.",
   "main": "app.js",
   "scripts": {
-    "test": "mocha 'test/**/*.test.js' --timeout 10000 --reporter mochawesome",
+    "test": "mocha test/**/*.test.js --timeout 10000 --reporter mochawesome",
+    "test-api": "mocha test/api/*.test.js --timeout 10000 --reporter mochawesome", 
     "test-rest-external": "mocha 'test/rest/external/**/*.test.js' --timeout 10000 --reporter mochawesome",
     "test-rest-controller": "mocha 'test/rest/controller/**/*.test.js' --timeout 10000 --reporter mochawesome",
     "test-graphql-external": "mocha 'test/graphql/external/**/*.test.js' --timeout 10000 --reporter mochawesome",
     "test-graphql-controller": "mocha 'test/graphql/controller/**/*.test.js' --timeout 10000 --reporter mochawesome",
     "start-rest": "node server.js",
     "start-graphql": "node graphql/server.js"
->>>>>>> aa6fde8ad51897ad0cc8a5c4812407ac74bd095f
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-<<<<<<< HEAD
-  "bugs": {
-    "url": "https://github.com/fagundesvitor/pgats-02-api/issues"
-  },
-  "homepage": "https://github.com/fagundesvitor/pgats-02-api#readme"
-=======
   "dependencies": {
     "apollo-server-express": "^3.13.0",
     "bcryptjs": "^3.0.2",
@@ -52,5 +34,4 @@
     "sinon": "^21.0.0",
     "supertest": "^7.1.4"
   }
->>>>>>> aa6fde8ad51897ad0cc8a5c4812407ac74bd095f
 }
