@@ -1,6 +1,6 @@
 import http from 'k6/http';
 import { sleep, check } from 'k6';
-const postLoginPerf = JSON.parse(open('../../../fixtures/postLoginPerf.json'));
+const postLoginPerf = JSON.parse(open('../fixtures/postLoginPerf.json'));
 
 export const options = {
     stages: [
