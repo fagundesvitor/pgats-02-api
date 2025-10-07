@@ -22,6 +22,7 @@ describe('Transfers', () => {
                 .set('Authorization', `Bearer ${token}`)
                 .send(bodyTransfers.sucesso);
             expect(response.status).to.equal(201);
+            console.log(response.body);
         });
 
         it('Deve retornar 400 quando a transerência for acima de 5000,00 para não favorecidos', async () => {
@@ -79,14 +80,15 @@ describe('Transfers', () => {
             expect(response.status).to.equal(401);
             expect(response.body.message).to.equal("Token não fornecido.");
             console.log(response.body);
-        })
+        });
+
         it('Deve retornar 400 quando não tem saldo suficiente', async () => {
             const bodyTransfers = { ...postTransfers }
             const response = await request(process.env.BASE_URL_REST)
                 .post('/transfers')
                 .set('Content-type', 'Application/json')
                 .set('Authorization', `Bearer ${token}`)
-                .send(bodyTransfers['saldo-inexistente']);
+                .send(bodyTransfers['saldo-insuficiente']);
             expect(response.status).to.equal(400);
             expect(response.body.error).to.equal("Saldo insuficiente");
             console.log(response.body);
