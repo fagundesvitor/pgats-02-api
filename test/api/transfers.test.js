@@ -9,7 +9,7 @@ describe('Transfers', () => {
     let token
 
     beforeEach(async () => {
-        token = await obterToken("vitor", "123456");
+        token = await obterToken("vitor", "123456"); //teste
     })
 
     describe('POST /transfers', () => {
