@@ -16,7 +16,7 @@ describe('Transfers', () => {
 
         it('Deve retornar 201 quando o valor da transferencia for válido', async () => {
             const bodyTransfers = { ...postTransfers };
-            const response = await request(process.env.BASE_URL)
+            const response = await request(process.env.BASE_URL_REST)
                 .post('/transfers')
                 .set('Content-type', 'Application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -26,7 +26,7 @@ describe('Transfers', () => {
 
         it('Deve retornar 400 quando a transerência for acima de 5000,00 para não favorecidos', async () => {
             const bodyTransfers = { ...postTransfers };
-            const response = await request(process.env.BASE_URL)
+            const response = await request(process.env.BASE_URL_REST)
                 .post('/transfers')
                 .set('Content-type', 'Application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -38,7 +38,7 @@ describe('Transfers', () => {
 
         it('Deve retornar 201 quando a transerência for acima de 5000,00 para favorecidos', async () => {
             const bodyTransfers = { ...postTransfers };
-            const response = await request(process.env.BASE_URL)
+            const response = await request(process.env.BASE_URL_REST)
                 .post('/transfers')
                 .set('Content-type', 'Application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -49,7 +49,7 @@ describe('Transfers', () => {
 
         it('Deve retornar 400 quando o destinatário for inexistente', async () => {
             const bodyTransfers = { ...postTransfers }
-            const response = await request(process.env.BASE_URL)
+            const response = await request(process.env.BASE_URL_REST)
                 .post('/transfers')
                 .set('Content-type', 'Application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -60,7 +60,7 @@ describe('Transfers', () => {
 
         it('Deve retornar 400 quando o remetente for inexistente', async () => {
             const bodyTransfers = { ...postTransfers }
-            const response = await request(process.env.BASE_URL)
+            const response = await request(process.env.BASE_URL_REST)
                 .post('/transfers')
                 .set('Content-type', 'Application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -71,7 +71,7 @@ describe('Transfers', () => {
 
         it('Deve retornar 401 quando o token for inválido ou não for informado', async () => {
             const bodyTransfers = { ...postTransfers }
-            const response = await request(process.env.BASE_URL)
+            const response = await request(process.env.BASE_URL_REST)
                 .post('/transfers')
                 .set('Content-type', 'Application/json')
                 //.set('Authorization', `Bearer ${token}`)
@@ -82,7 +82,7 @@ describe('Transfers', () => {
         })
         it('Deve retornar 400 quando não tem saldo suficiente', async () => {
             const bodyTransfers = { ...postTransfers }
-            const response = await request(process.env.BASE_URL)
+            const response = await request(process.env.BASE_URL_REST)
                 .post('/transfers')
                 .set('Content-type', 'Application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -96,14 +96,14 @@ describe('Transfers', () => {
     describe('GET /transfers', () => {
 
         it('Deve retornar 200 quando a requisição for válida', async () => {
-            const response = await request(process.env.BASE_URL)
+            const response = await request(process.env.BASE_URL_REST)
                 .get('/transfers')
                 .set('Authorization', `Bearer ${token}`)
             expect(response.status).to.equal(200);
         });
 
         it('Deve retornar 401 quando o token for inválido ou não for informado', async () => {
-            const response = await request(process.env.BASE_URL)
+            const response = await request(process.env.BASE_URL_REST)
                 .get('/transfers')
             expect(response.status).to.equal(401);
             expect(response.body.message).to.equal("Token não fornecido.");

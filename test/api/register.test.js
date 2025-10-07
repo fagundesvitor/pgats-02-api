@@ -7,7 +7,7 @@ describe('POST /users/register', () => {
     it('Deve retornar 201 quando usuário for criado com sucesso', async () => {
         const randomUsername = `vitor_${Date.now()}`;
         const bodyRegister = { ...postRegister, username: randomUsername };
-        const response = await request(process.env.BASE_URL)
+        const response = await request(process.env.BASE_URL_REST)
             .post('/users/register')
             .set('Content-Type', 'application/json')
             .send(bodyRegister);
@@ -20,7 +20,7 @@ describe('POST /users/register', () => {
     });
 
     it('Deve retornar 400 quando usuário já existir', async () => {
-        const response = await request(process.env.BASE_URL)
+        const response = await request(process.env.BASE_URL_REST)
             .post('/users/register')
             .set('Content-Type', 'application/json')
             .send({
