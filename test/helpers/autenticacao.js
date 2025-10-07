@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const obterToken = async (usuario, senha) => {
     const bodyLogin = { ...postLogin.sucesso }
-    const response = await request(process.env.BASE_URL)
+    const response = await request(process.env.BASE_URL_REST)
         .post('/users/login')
         .set('Content-type', 'Application/json')
         .send(bodyLogin)
